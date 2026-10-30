@@ -5,6 +5,7 @@ import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 import SessionCodeModal from "../components/SessionCodeModal";
 import QuizModal from "../components/QuizModal";
+import LeaveApplicationPage from "./LeaveApplicationPage";
 import { ResponsiveContainer, XAxis, YAxis, Tooltip, LineChart, Line } from "recharts";
 
 export default function StudentDashboard() {
@@ -132,6 +133,7 @@ export default function StudentDashboard() {
     { id: "report", label: "Weekly Report", icon: "📑" },
     { id: "marks", label: "Academic Marks", icon: "📝" },
     { id: "notifications", label: "Notifications", icon: "🔔", badge: unreadNotifCount > 0 ? unreadNotifCount : null },
+    { id: "leave", label: "Leave Application", icon: "📋" },
     { id: "profile", label: "Profile", icon: "👤" }
   ];
 
@@ -679,6 +681,11 @@ export default function StudentDashboard() {
                 )}
               </div>
             </div>
+          )}
+
+          {/* TAB: LEAVE APPLICATION */}
+          {activeTab === "leave" && (
+            <LeaveApplicationPage studentInfo={studentInfo} userName={user?.name} />
           )}
 
           {/* TAB 10: PROFILE */}

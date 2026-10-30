@@ -3,6 +3,7 @@ import { useAuth } from "../AuthContext";
 import api from "../api";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
+import LeaveManagementPage from "./LeaveManagementPage";
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip } from "recharts";
 
 export default function StaffDashboard() {
@@ -70,6 +71,7 @@ export default function StaffDashboard() {
   const [studentsList, setStudentsList] = useState([]);
   const [lowAttStudents, setLowAttStudents] = useState([]);
   const [notifications, setNotifications] = useState([]);
+  const [pendingLeaveCount, setPendingLeaveCount] = useState(0);
   const [statusMsg, setStatusMsg] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -77,6 +79,7 @@ export default function StaffDashboard() {
     fetchStaffData();
     fetchClassRoster();
     fetchNotifications();
+    fetchPendingLeaveCount();
     checkActiveSession();
     const interval = setInterval(checkActiveSession, 5000);
     const rosterInterval = setInterval(() => fetchClassRoster(false), 5000);
@@ -128,6 +131,15 @@ export default function StaffDashboard() {
       setNotifications(notifRes.data || []);
     } catch (err) {
       console.error("Error loading notifications", err);
+    }
+  };
+
+  const fetchPendingLeaveCount = async () => {
+    try {
+      const res = await api.get("/leave/pending-count");
+      setPendingLeaveCount(res.data.pending_count || 0);
+    } catch (err) {
+      console.error("Error fetching pending leave count", err);
     }
   };
 
@@ -367,6 +379,7 @@ export default function StaffDashboard() {
     { id: "assessments", label: "Quiz Performance", icon: "⚡" },
     { id: "reports", label: "Class Reports", icon: "📑" },
     { id: "warnings", label: "Notifications & Alerts", icon: "🔔", badge: unreadNotifsCount > 0 ? unreadNotifsCount : null },
+    { id: "leave_mgmt", label: "Leave Management", icon: "🗂️", badge: pendingLeaveCount > 0 ? pendingLeaveCount : null },
     { id: "profile", label: "Profile", icon: "👤" }
   ];
 
@@ -1079,6 +1092,11 @@ export default function StaffDashboard() {
                 </button>
               </form>
             </div>
+          )}
+
+          {/* TAB: LEAVE MANAGEMENT */}
+          {activeTab === "leave_mgmt" && (
+            <LeaveManagementPage />
           )}
 
           {/* TAB 8: PROFILE */}

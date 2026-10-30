@@ -2,8 +2,8 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from pydantic import BaseModel
 from typing import List
-from database import get_db, Domain, Question, AssessmentAttempt, Student, User
-from auth import get_current_user
+from backend.database import get_db, Domain, Question, AssessmentAttempt, Student, User
+from backend.auth import get_current_user
 from datetime import datetime
 
 
@@ -135,7 +135,7 @@ def get_student_for_user(user: User, db: Session):
             db.refresh(student)
         return student
     elif user.role == "parent":
-        from database import Parent
+        from backend.database import Parent
         parent = db.query(Parent).filter(Parent.user_id == user.id).first()
         if parent and parent.student_email:
             st_user = db.query(User).filter(User.email == parent.student_email).first()

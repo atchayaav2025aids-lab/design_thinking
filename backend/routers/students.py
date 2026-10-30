@@ -2,8 +2,8 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from pydantic import BaseModel
 from typing import Optional
-from database import get_db, Student, User, Grade, Attendance, AssessmentAttempt, Domain, Parent
-from auth import get_current_user, require_role
+from backend.database import get_db, Student, User, Grade, Attendance, AssessmentAttempt, Domain, Parent
+from backend.auth import get_current_user, require_role
 
 router = APIRouter(prefix="/students", tags=["students"])
 

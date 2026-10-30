@@ -1,6 +1,6 @@
 import unittest
 
-from database import Student
+from backend.database import Student
 from routers.attendance import calculate_student_attendance
 
 

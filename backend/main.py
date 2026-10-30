@@ -1,8 +1,8 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from database import init_db
-from routers import auth_router, students, grades, attendance, prediction, notifications, domains, quiz_router, reports_router
+from backend.database import init_db
+from backend.routers import auth_router, students, grades, attendance, prediction, notifications, domains, quiz_router, reports_router, leave
 import uvicorn
 
 @asynccontextmanager
@@ -29,6 +29,7 @@ app.include_router(notifications.router)
 app.include_router(domains.router)
 app.include_router(quiz_router.router)
 app.include_router(reports_router.router)
+app.include_router(leave.router)
 
 @app.get("/")
 def root():

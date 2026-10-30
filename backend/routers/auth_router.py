@@ -4,8 +4,8 @@ from pydantic import BaseModel
 from typing import Optional
 from datetime import datetime, timedelta
 import random
-from database import get_db, User, Student, Staff, Parent
-from auth import create_token, get_current_user, hash_password, verify_password
+from backend.database import get_db, User, Student, Staff, Parent
+from backend.auth import create_token, get_current_user
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 

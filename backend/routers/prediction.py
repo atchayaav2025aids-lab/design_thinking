@@ -1,9 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-from database import get_db, Student, Grade, Attendance, User, Parent
-from auth import get_current_user, require_role
-from ml.predictor import predict_risk
-
+from backend.database import get_db, Student, Grade, Attendance, User, Parent
+from backend.auth import get_current_user, require_role
+from backend.ml.predictor import predict_risk
 router = APIRouter(prefix="/predict", tags=["prediction"])
 
 @router.get("/{student_id}")

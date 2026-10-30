@@ -1,6 +1,6 @@
 import json
 from datetime import datetime, timedelta
-from database import SessionLocal, User, Student, Staff, Parent, Grade, Attendance, Domain, Question, AssessmentAttempt, Notification
+from backend.database import SessionLocal, User, Student, Staff, Parent, Grade, Attendance, Domain, Question, AssessmentAttempt, Notification
 
 SAMPLE_QUESTIONS = [
     # Data Science
@@ -205,7 +205,7 @@ SAMPLE_QUESTIONS = [
 ]
 
 import os
-from database import SessionLocal, User, Student, Staff, Parent, Grade, Attendance, Domain, Question, AssessmentAttempt, Notification, init_db, engine, Base
+from backend.database import SessionLocal, User, Student, Staff, Parent, Grade, Attendance, Domain, Question, AssessmentAttempt, Notification, init_db, engine, Base
 
 def seed_database():
     # Ensure fresh table schemas

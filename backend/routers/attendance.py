@@ -8,8 +8,8 @@ import io
 import random
 import string
 from datetime import datetime, timedelta
-from database import get_db, Attendance, AttendanceSession, Student, Staff, User, Notification, Parent
-from auth import get_current_user, require_role
+from backend.database import get_db, Attendance, AttendanceSession, Student, Staff, User, Notification, Parent
+from backend.auth import get_current_user, require_role
 
 router = APIRouter(prefix="/attendance", tags=["attendance"])
 

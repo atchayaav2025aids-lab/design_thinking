@@ -5,7 +5,7 @@ import random
 from fastapi import Depends, HTTPException
 from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session
-from database import get_db, User
+from backend.database import get_db, User
 
 SECRET_KEY = "student_success_secret_2024_xyz"
 ALGORITHM = "HS256"

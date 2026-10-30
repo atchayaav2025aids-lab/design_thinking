@@ -3,8 +3,8 @@ from sqlalchemy.orm import Session
 from datetime import datetime, timedelta
 import json
 
-from database import get_db, Student, Attendance, AssessmentAttempt, Grade, WeeklyReport, Parent, User, Notification
-from auth import get_current_user, require_role
+from backend.database import get_db, Student, Attendance, AssessmentAttempt, Grade, WeeklyReport, Parent, User, Notification
+from backend.auth import get_current_user, require_role
 
 router = APIRouter(prefix="/reports", tags=["reports"])
 
@@ -39,8 +39,7 @@ def calculate_overall_progress_score(att_pct: float, quiz_avg: float, grade_avg:
     score = round(att_weight + quiz_weight + grade_weight, 1)
     return min(100.0, max(0.0, score))
 
-from routers.attendance import calculate_student_attendance, get_student_for_user
-
+from backend.routers.attendance import calculate_student_attendance, get_student_for_user
 @router.get("/weekly")
 def get_weekly_report(current_user: User = Depends(get_current_user), db: Session = Depends(get_db)):
     if current_user.role == "staff":

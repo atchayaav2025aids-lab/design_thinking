@@ -5,8 +5,8 @@ from typing import List, Optional
 import random
 from datetime import datetime
 
-from database import get_db, Question, AssessmentAttempt, AssessmentAttemptQuestion, Student, Domain, User, Notification
-from auth import get_current_user
+from backend.database import get_db, Question, AssessmentAttempt, AssessmentAttemptQuestion, Student, Domain, User, Notification
+from backend.auth import get_current_user
 
 router = APIRouter(prefix="/quiz", tags=["quiz"])
 
@@ -26,7 +26,7 @@ def get_student_for_user(user: User, db: Session):
             db.refresh(student)
         return student
     elif user.role == "parent":
-        from database import Parent
+        from backend.database import Parent
         parent = db.query(Parent).filter(Parent.user_id == user.id).first()
         if parent and parent.student_email:
             st_user = db.query(User).filter(User.email == parent.student_email).first()

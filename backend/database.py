@@ -3,7 +3,11 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, relationship
 from datetime import datetime
 
-DATABASE_URL = "sqlite:///./student_success.db"
+import os
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+DATABASE_URL = f"sqlite:///{os.path.join(BASE_DIR, 'student_success.db').replace(os.sep, '/')}"
 engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
@@ -191,6 +195,8 @@ def get_db():
         db.close()
 
 def init_db():
+    # Import leave model so its table is included in metadata
+    from backend.models_leave import LeaveApplication  # noqa: F401
     Base.metadata.create_all(bind=engine)
     with engine.begin() as connection:
         columns = {row[1] for row in connection.exec_driver_sql("PRAGMA table_info(attendance)").fetchall()}
