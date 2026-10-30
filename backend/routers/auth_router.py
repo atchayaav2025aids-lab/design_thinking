@@ -5,7 +5,7 @@ from typing import Optional
 from datetime import datetime, timedelta
 import random
 from backend.database import get_db, User, Student, Staff, Parent
-from backend.auth import create_token, get_current_user
+from backend.auth import create_token, get_current_user, hash_password, verify_password
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 
